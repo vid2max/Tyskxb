@@ -1,252 +1,234 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <script src="https://pl30627583.profitableratecpmnetwork.com/d5/60/79/d56079c7788bd3e1f5be8a617ee76745.js"></script>
+    <script src="https://pl30627583.profitableratecpmnetwork.com/d5/60/79/d56079c7788bd3e1f5be8a617ee76745.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Short asia collection</title>
-    <!-- Google Font & FontAwesome Icon -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>ASIA HUB</title>
+    <!-- Google Fonts & FontAwesome untuk ikon -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
-
         body {
-            background-color: #0b0c10;
-            color: #ffffff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #0b0f19;
+            color: #f8fafc;
             min-height: 100vh;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-
-        /* Ambient Glow Background Effect */
-        .glow-bg {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(255, 0, 85, 0.25) 0%, rgba(0,0,0,0) 70%);
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1;
-            filter: blur(50px);
-            pointer-events: none;
-        }
-
-        /* Container Video Cinematik */
-        .player-card {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 850px;
-            background: rgba(20, 22, 28, 0.7);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .video-wrapper {
-            position: relative;
-            width: 100%;
-            padding-top: 56.25%; /* Ratio 16:9 */
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: #000000;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
-        }
-
-        /* Banner Thumbnail / Poster Dummy */
-        .video-poster {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.75;
-            transition: transform 0.5s ease, opacity 0.5s ease;
-        }
-
-        .video-wrapper:hover .video-poster {
-            transform: scale(1.03);
-            opacity: 0.85;
-        }
-
-        /* Overlay Gradasi Cinematik */
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.4) 100%);
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 15px;
+        }
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+        .video-preview {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            background: #1f2937;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
             text-decoration: none;
             cursor: pointer;
         }
-
-        /* Custom Animated Play Button */
-        .play-btn-wrapper {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .video-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(4px) brightness(0.6);
+            transform: scale(1.05);
         }
-
-        .play-btn {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #ff0055, #ff5000);
+        .play-btn-overlay {
+            position: absolute;
+            width: 75px;
+            height: 75px;
+            background: rgba(225, 29, 72, 0.9);
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
+            color: white;
             font-size: 28px;
-            padding-left: 5px; /* Alignment icon play */
-            box-shadow: 0 0 25px rgba(255, 0, 85, 0.6);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 2;
+            box-shadow: 0 0 30px rgba(225, 29, 72, 0.7);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: pulse-ring 2s infinite;
         }
-
-        /* Effek Pulsa Cinematik */
-        .play-btn-wrapper::before,
-        .play-btn-wrapper::after {
-            content: '';
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(225, 29, 72, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+        }
+        .video-preview:hover .play-btn-overlay {
+            transform: scale(1.1);
+            background: rgb(244, 63, 94);
+        }
+        .video-duration {
             position: absolute;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: rgba(255, 0, 85, 0.4);
-            z-index: 1;
-            animation: pulse 2s infinite;
-        }
-
-        .play-btn-wrapper::after {
-            animation-delay: 0.6s;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            100% {
-                transform: scale(1.8);
-                opacity: 0;
-            }
-        }
-
-        .overlay:hover .play-btn {
-            transform: scale(1.15);
-            box-shadow: 0 0 35px rgba(255, 0, 85, 0.9);
-        }
-
-        /* Video Info Header */
-        .video-header {
-            position: absolute;
-            top: 15px;
-            left: 20px;
-            right: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 3;
-            pointer-events: none;
-        }
-
-        .badge-live {
-            background: #ff0055;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 4px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 4px;
             color: #fff;
+        }
+        .content-body {
+            padding: 20px;
+        }
+        .meta-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .tag {
+            background: rgba(225, 29, 72, 0.15);
+            color: #fb7185;
             font-size: 11px;
             font-weight: 600;
             padding: 4px 10px;
             border-radius: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 0 10px rgba(255, 0, 85, 0.5);
         }
-
-        /* Detail Informasi Judul */
-        .video-details {
-            margin-top: 20px;
+        h1 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+        .video-stats {
+            font-size: 12px;
+            color: #9ca3af;
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 12px;
+        }
+        .btn-watch {
+            display: flex;
+            justify-content: center;
             align-items: center;
+            gap: 10px;
+            width: 100%;
+            background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 10px 20px rgba(225, 29, 72, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            margin-bottom: 10px;
         }
-
-        .video-title {
-            font-size: 18px;
+        .btn-watch:hover {
+            background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(225, 29, 72, 0.5);
+        }
+        .btn-blog {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            color: #94a3b8;
             font-weight: 600;
-            color: #ffffff;
-            letter-spacing: 0.5px;
-        }
-
-        .video-sub {
             font-size: 13px;
-            color: #a0a5b5;
-            margin-top: 4px;
+            padding: 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.2s ease;
+        }
+        .btn-blog:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+        .footer-note {
+            text-align: center;
+            font-size: 11px;
+            color: #6b7280;
+            margin-top: 15px;
+        }
+        .footer-note i {
+            color: #34d399;
         }
     </style>
 </head>
 <body>
 
-    <div class="glow-bg"></div>
+    <div class="container">
+        <!-- Thumbnail Video (Membuka Smartlink di Tab Baru, Video terbuka otomatis di tab ini lewat script) -->
+        <a href="https://www.profitableratecpmnetwork.com/agijdjkf?key=b68403d796344c04660419b144a9cea4" class="video-preview" target="_blank" onclick="playVideoDirectly(event)">
+            <img src="https://i.ibb.co/fzKPWx1w/d6c96257979d73d7e3399650e24dd111.jpg" alt="Video Thumbnail">
+            <div class="play-btn-overlay">
+                <i class="fa-solid fa-play"></i>
+            </div>
+            <div class="video-duration">
+                <i class="fa-solid fa-circle" style="font-size: 8px; color: #ef4444;"></i> 
+            </div>
+        </a>
 
-    <div class="player-card">
-        <div class="video-wrapper">
-            <!-- Poster Thumbnail -->
-            <img src="https://i.ibb.co/chst3bqM/59a84aaf078cf0f9c84b49dc18b4444b.jpg" alt="Video Thumbnail" class="video-poster">
+        <!-- Bagian Informasi Video -->
+        <div class="content-body">
+            <div class="meta-tags">
+                <span class="tag"><i class="fa-solid fa-fire"></i> Hot Trend</span>
+                <span class="tag"><i class="fa-solid fa-shield"></i> HD Quality</span>
+            </div>
 
-            <!-- Link Smartlink Adsterra -->
-            <!-- GANTI URL HREF DI BAWAH INI DENGAN SMARTLINK ADSTERRA ANDA -->
-            <a href="https://www.profitableratecpmnetwork.com/agijdjkf?key=b68403d796344c04660419b144a9cea4" 
-               target="_blank" 
-               class="overlay" 
-               onclick="playVideoDirectly(event)">
-                
-                <div class="video-header">
-                    <span class="badge-live"><i class="fa-solid fa-circle" style="font-size: 8px; vertical-align: middle; margin-right: 4px;"></i> HD 1080p</span>
-                </div>
+            <h1>ASIA HUB</h1>
+            
+            <div class="video-stats">
+                <span><i class="fa-solid fa-eye"></i> 957k Penonton</span>
+                <span><i class="fa-solid fa-thumbs-up"></i> 98% Suka</span>
+            </div>
 
-                <div class="play-btn-wrapper">
-                    <div class="play-btn">
-                        <i class="fa-solid fa-play"></i>
-                    </div>
-                </div>
+            <!-- Tombol Utama (Membuka Smartlink di Tab Baru, Video terbuka otomatis di tab ini lewat script) -->
+            <a href="https://www.profitableratecpmnetwork.com/agijdjkf?key=b68403d796344c04660419b144a9cea4" class="btn-watch" target="_blank" onclick="playVideoDirectly(event)">
+                <i class="fa-solid fa-play"></i> TONTON VIDEO SEKARANG
             </a>
-        </div>
 
-        <div class="video-details">
-            <div>
-                <h2 class="video-title">Short asia collection</h2>
-                <p class="video-sub">Klik tombol Play untuk memutar video secara langsung.</p>
+            <!-- Tombol Menuju Website / Blog Anda -->
+            <a href="https://www.profitableratecpmnetwork.com/agijdjkf?key=b68403d796344c04660419b144a9cea4" class="btn-blog" target="_blank">
+                <i class="fa-solid fa-globe"></i> Kunjungi Website
+            </a>
+
+            <div class="footer-note">
+                <i class="fa-solid fa-lock"></i> Koneksi aman & terenkripsi.
             </div>
         </div>
     </div>
 
-    <!-- Script Pengarah & Adsterra Redirect -->
     <script>
         function playVideoDirectly(event) {
             // Biarkan link target="_blank" membuka Smartlink Adsterra secara natural di tab baru
             // Lalu arahkan halaman ini ke file video MP4 setelah jeda sangat singkat
             setTimeout(function() {
-                window.location.href = "https://trbnvideo.live/v/q1jQzQrs";
+                window.location.href = "https://trbnvideo.live/v/Ge73o8EG";
             }, 300);
         }
     </script>
+
 </body>
 </html>
