@@ -1,128 +1,219 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vidoy - Video Player</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        body {
-            background-color: #0b0c10;
-            color: #ffffff;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        }
-    </style>
+  <script src="https://pl30627583.profitableratecpmnetwork.com/d5/60/79/d56079c7788bd3e1f5be8a617ee76745.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Gallery</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #ffffff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .video-card {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 9 / 14;
+      background-color: #1a1a1a;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .video-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
+    }
+    .video-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .overlay-gradient {
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.4) 100%);
+    }
+    .text-stroke {
+      -webkit-text-stroke: 1px #000;
+    }
+  </style>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="p-3 max-w-md mx-auto min-h-screen relative">
 
-    <!-- Header / Navbar -->
-    <header class="w-full py-4 px-6 md:px-12 flex items-center justify-between border-b border-gray-800/50">
-        <div class="flex items-center gap-2">
-            <div class="bg-gradient-to-r from-pink-500 to-rose-500 text-white p-2 rounded-lg flex items-center justify-center font-bold text-xl shadow-lg shadow-pink-500/20">
-                <i class="fa-solid fa-play text-sm"></i>
+  <!-- Grid 10 Kartu Video -->
+  <main class="grid grid-cols-2 gap-3" id="videoGrid">
+    <!-- Diisi otomatis oleh JavaScript -->
+  </main>
+
+  <!-- Modal Embed Video Player -->
+  <div id="videoModal" class="fixed inset-0 bg-black/90 z-50 hidden flex-col justify-center items-center p-4">
+    <div class="relative w-full max-w-md bg-black rounded-xl overflow-hidden shadow-2xl aspect-[9/16]">
+      <!-- Tombol Tutup -->
+      <button onclick="closeVideoModal()" class="absolute top-3 right-3 bg-red-600 text-white rounded-full p-2 z-10 hover:bg-red-700">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <!-- Player Embed (Iframe) -->
+      <iframe id="embedVideoPlayer" class="w-full h-full border-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Configuration URLs - Smartlink
+    const SMARTLINK_URL = "https://www.profitableratecpmnetwork.com/agijdjkf?key=b68403d796344c04660419b144a9cea4";
+
+    // Data 10 Video dengan gambar kustom dan link trbnvideo.live
+    const videos = [
+      {
+        title: "Koleksi Terbaru Part 1",
+        badge: "HOT TRENDING",
+        subBadge: "VIRAL",
+        image: "https://i.ibb.co/6J7SkhCx/1794386609310.jpg",
+        embedUrl: "https://trbnvideo.live/e/HYumLhPB"
+      },
+      {
+        title: "Video Spesial Selebgram",
+        badge: "PALING DICARI",
+        subBadge: "FULL HD",
+        image: "https://i.ibb.co/nM2Y2n0H/1794386585135.jpg",
+        embedUrl: "https://trbnvideo.live/e/3Oj1jJ1V"
+      },
+      {
+        title: "Momen Viral Pilihan",
+        badge: "POPULER",
+        subBadge: "EXCLUSIVE",
+        image: "https://i.ibb.co/FLBf5wY7/1794386512217.jpg",
+        embedUrl: "https://trbnvideo.live/e/6mrL29f2"
+      },
+      {
+        title: "Kisah Hangat Netizen",
+        badge: "TERBARU",
+        subBadge: "WATCH NOW",
+        image: "https://i.ibb.co/FbmYh1tr/1794386070183.jpg",
+        embedUrl: "https://trbnvideo.live/e/2au6CUyw"
+      },
+      {
+        title: "Viral Durasi Full",
+        badge: "REKOMENDASI",
+        subBadge: "NO SENSOR",
+        image: "https://i.ibb.co/ns8XZNpx/1794386244834.jpg",
+        embedUrl: "https://trbnvideo.live/e/dJgZTciT"
+      },
+      {
+        title: "Aksi Seru Bikin Penasaran",
+        badge: "TOP VIRAL",
+        subBadge: "HOT TOPIC",
+        image: "https://i.ibb.co/WWsScdBC/1794386053859.jpg",
+        embedUrl: "https://trbnvideo.live/e/W1RfFQaT"
+      },
+      {
+        title: "Kumpulan Video Pilihan",
+        badge: "SPESIAL HARI INI",
+        subBadge: "VIRAL",
+        image: "https://i.ibb.co/KzcJFSF1/1794386032218.jpg",
+        embedUrl: "https://trbnvideo.live/e/X14DZG1K"
+      },
+      {
+        title: "Kejadian Unik Terkini",
+        badge: "SEDANG RAME",
+        subBadge: "FULL VIDEO",
+        image: "https://i.ibb.co/0R4xpFLT/1794386023820.jpg",
+        embedUrl: "https://trbnvideo.live/e/fXEikbHb"
+      },
+      {
+        title: "Sorotan Netizen Aktif",
+        badge: "FAVORIT",
+        subBadge: "HD QUALITY",
+        image: "https://i.ibb.co/qL6x3Cgv/1794386007558.jpg",
+        embedUrl: "https://trbnvideo.live/e/Tdw0thWA"
+      },
+      {
+        title: "Eksklusif Part Akhir",
+        badge: "SPECIAL CONTENT",
+        subBadge: "PREMIUM",
+        image: "https://i.ibb.co/DfB1Nskz/1794386000954.jpg",
+        embedUrl: "https://trbnvideo.live/e/qZ6agyNj"
+      }
+    ];
+
+    // Popunder Trigger System & Video Play Handler
+    let popunderTriggered = false;
+
+    function handleVideoClick(smartlinkUrl, embedUrl) {
+      // 1. Jalankan Smartlink Popunder / Redirect
+      if (!popunderTriggered) {
+        window.open(smartlinkUrl, '_blank');
+        popunderTriggered = true;
+      } else {
+        window.open(smartlinkUrl, '_blank');
+      }
+
+      // 2. Buka Modal dan Muat Link Embed
+      openVideoModal(embedUrl);
+    }
+
+    function openVideoModal(embedUrl) {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('embedVideoPlayer');
+
+      iframe.src = embedUrl;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeVideoModal() {
+      const modal = document.getElementById('videoModal');
+      const iframe = document.getElementById('embedVideoPlayer');
+      
+      // Hentikan pemutaran dengan mengosongkan source iframe saat ditutup
+      iframe.src = "";
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // Render Grid Kartu Video
+    const grid = document.getElementById('videoGrid');
+    videos.forEach((video) => {
+      const card = document.createElement('div');
+      card.className = 'video-card';
+      card.onclick = () => handleVideoClick(SMARTLINK_URL, video.embedUrl);
+
+      card.innerHTML = `
+        <img src="${video.image}" alt="${video.title}" loading="lazy">
+        <div class="absolute inset-0 overlay-gradient p-2.5 flex flex-col justify-between">
+          
+          <!-- Text Header Overlay -->
+          <div>
+            <span class="inline-block bg-yellow-400 text-black text-[10px] font-black px-1.5 py-0.5 rounded shadow">
+              ${video.badge}
+            </span>
+          </div>
+
+          <!-- Play Icon Center -->
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div class="w-12 h-12 bg-red-600/90 rounded-full flex items-center justify-center shadow-lg">
+              <svg class="w-6 h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
             </div>
-            <span class="text-2xl font-black tracking-wider italic">vidoy</span>
+          </div>
+
+          <!-- Bottom Text Overlay -->
+          <div>
+            <span class="inline-block bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider mb-1">
+              ${video.subBadge}
+            </span>
+            <p class="text-xs font-medium text-gray-200 truncate text-stroke">
+              ${video.title}
+            </p>
+          </div>
         </div>
-        <div>
-            <button class="bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-medium px-5 py-2.5 rounded-full flex items-center gap-2 shadow-lg shadow-pink-500/20 transition-all duration-200">
-                <i class="fa-solid fa-arrow-up-from-bracket"></i> Upload
-            </button>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="flex-1 max-w-4xl w-full mx-auto p-4 md:p-6 flex flex-col gap-6">
-        
-        <!-- Video Player Container -->
-        <div class="relative w-full aspect-[9/16] md:aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-gray-800 group flex items-center justify-center">
-            
-            <!-- Video Thumbnail -->
-            <img src="https://i.ibb.co/qYLyxNtk/1793118375083.jpg" alt="Video Cover" class="absolute inset-0 w-full h-full object-cover opacity-80">
-            
-            <!-- Dark Gradient Overlay -->
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/40"></div>
-
-            <!-- Top Controls -->
-            <div class="absolute top-4 right-4 flex items-center gap-4 text-white">
-                <button class="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center hover:bg-black/60 transition">
-                    <i class="fa-solid fa-volume-high"></i>
-                </button>
-                <button class="w-10 h-10 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center hover:bg-black/60 transition">
-                    <i class="fa-solid fa-gear"></i>
-                </button>
-            </div>
-
-            <!-- Center Big Play Button (Redirect to Exastream) -->
-            <button onclick="redirectToExastream()" class="absolute w-16 h-16 md:w-20 md:h-20 bg-pink-500 hover:bg-pink-600 rounded-full flex items-center justify-center text-white shadow-xl shadow-pink-500/40 transition transform hover:scale-105 cursor-pointer">
-                <i class="fa-solid fa-play text-2xl md:text-3xl ml-1"></i>
-            </button>
-
-            <!-- Watermark Text -->
-            <div class="absolute bottom-16 left-6 text-sm text-gray-200 font-medium">
-               
-            </div>
-
-            <!-- Bottom Controls Bar -->
-            <div class="absolute bottom-0 left-0 right-0 p-4 flex flex-col gap-2 bg-gradient-to-t from-black/90 to-transparent">
-                <div class="flex items-center gap-3">
-                    <button class="text-white hover:text-pink-400 transition">
-                        <i class="fa-solid fa-play text-sm"></i>
-                    </button>
-                    <!-- Progress Bar (Digeser ke kiri pol) -->
-                    <div class="flex-1 relative h-1.5 bg-white/30 rounded-full cursor-pointer">
-                        <div class="absolute top-0 left-0 h-full w-[0%] bg-pink-500 rounded-full"></div>
-                        <div class="absolute top-1/2 left-0 -translate-y-1/2 w-3 h-3 bg-pink-500 rounded-full shadow"></div>
-                    </div>
-                    <!-- Waktu Diubah Menjadi 23:47 -->
-                    <span class="text-xs text-gray-300 font-mono"></span>
-                    <div class="flex items-center gap-3 text-gray-300">
-                        <button class="hover:text-white transition"><i class="fa-solid fa-up-right-from-square"></i></button>
-                        <button class="hover:text-white transition"><i class="fa-solid fa-expand"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Video Title -->
-        <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-white leading-snug">
-            
-        </h1>
-
-        <!-- Metadata Badges -->
-        <div class="flex flex-wrap items-center gap-3 text-sm text-gray-300">
-            <div class="flex items-center gap-2 bg-[#161821] border border-gray-800 px-4 py-2.5 rounded-xl">
-                <i class="fa-regular fa-clock text-pink-500"></i>
-                <span>23:47</span>
-            </div>
-            <div class="flex items-center gap-2 bg-[#161821] border border-gray-800 px-4 py-2.5 rounded-xl">
-                <i class="fa-solid fa-database text-pink-500"></i>
-                <span>26.9 MB</span>
-            </div>
-            <div class="flex items-center gap-2 bg-[#161821] border border-gray-800 px-4 py-2.5 rounded-xl">
-                <i class="fa-regular fa-eye text-pink-500"></i>
-                <span>927k views</span>
-            </div>
-        </div>
-
-        <div class="inline-flex items-center gap-2.5 bg-[#161821] border border-gray-800 px-4 py-2.5 rounded-xl w-fit text-sm text-gray-300">
-            <i class="fa-regular fa-calendar text-pink-500"></i>
-            <span>12 September 2026</span>
-        </div>
-
-    </main>
-
-    <!-- JavaScript untuk Redirect ke Exastream -->
-    <script>
-        function redirectToExastream() {
-            window.location.href = 'https://trbnvideo.live/e/8izfhq3D';
-        }
-    </script>
-
-    <!-- Skrip Popunder Adsterra -->
-  <script src="https://quge5.com/88/tag.min.js" data-zone="277348" async data-cfasync="false"></script>
-<script src="https://pl30627584.profitableratecpmnetwork.com/f6/22/0a/f6220ad827005fa4bd5a30b0a8ce559c.js"></script>
-
+      `;
+      grid.appendChild(card);
+    });
+  </script>
 </body>
 </html>
