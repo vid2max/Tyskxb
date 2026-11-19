@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Video Gallery</title>
@@ -46,18 +45,59 @@
     <!-- Diisi otomatis oleh JavaScript -->
   </main>
 
-  <!-- Modal Embed Video Player -->
-  <div id="videoModal" class="fixed inset-0 bg-black/90 z-50 hidden flex-col justify-center items-center p-4">
-    <div class="relative w-full max-w-md bg-black rounded-xl overflow-hidden shadow-2xl aspect-[9/16]">
-      <!-- Tombol Tutup -->
-      <button onclick="closeVideoModal()" class="absolute top-3 right-3 bg-red-600 text-white rounded-full p-2 z-10 hover:bg-red-700">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-        </svg>
+  <!-- Modal Embed Video Player (Gaya sesuai referensi gambar di tengah) -->
+  <div id="videoModal" class="fixed inset-0 bg-black/90 z-50 hidden flex justify-center items-center p-4">
+    <div class="relative w-full max-w-sm bg-[#161616] border border-neutral-800 rounded-2xl overflow-hidden shadow-2xl p-4 flex flex-col">
+      
+      <!-- Header Modal: "NOW PLAYING" & Tombol Tutup (X) -->
+      <div class="flex justify-between items-center mb-3">
+        <div class="flex items-center space-x-1.5">
+          <span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span>
+          <span class="text-[11px] font-bold tracking-wider text-yellow-500 uppercase">Now Playing</span>
+        </div>
+        <button onclick="closeVideoModal()" class="w-7 h-7 bg-neutral-800 text-neutral-300 rounded-full flex items-center justify-center hover:bg-neutral-700 hover:text-white transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Wrapper Pemutar Video & In-Page Push Overlay -->
+      <div class="relative w-full aspect-[16/10] bg-black rounded-xl overflow-hidden shadow-inner mb-3">
+        <!-- Player Embed (Iframe) -->
+        <iframe id="embedVideoPlayer" class="w-full h-full border-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+        <!-- In-Page Push Banner (Menutupi pemutar video, muncul pertama setelah 8s, lalu tiap 20s) -->
+        <div id="inPagePushBanner" class="absolute inset-0 bg-neutral-900/95 z-30 hidden flex flex-col justify-between p-3 border border-yellow-500/30 backdrop-blur-sm cursor-pointer" onclick="handleInPagePushClick(event)">
+          <div class="flex justify-between items-center">
+            <span class="bg-yellow-500 text-black text-[9px] font-black px-1.5 py-0.5 rounded uppercase">Sponsored / New</span>
+            <button onclick="closeInPagePush(event)" class="w-6 h-6 bg-red-600/80 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition text-xs font-bold">✕</button>
+          </div>
+          <div class="text-center my-auto">
+            <p class="text-xs font-bold text-white mb-1">🔥 Akses Video Eksklusif & Update Terbaru!</p>
+            <p class="text-[10px] text-gray-300">Klik untuk melihat konten lengkap tanpa batas.</p>
+          </div>
+          <div class="bg-yellow-500 text-black text-center text-xs font-bold py-1.5 rounded-lg shadow">
+            ▶ Tonton Sekarang
+          </div>
+        </div>
+      </div>
+
+      <!-- Informasi Judul & Channel -->
+      <div class="mb-3">
+        <h3 id="modalVideoTitle" class="text-sm font-semibold text-white truncate mb-1">Judul Video</h3>
+        <div class="flex justify-between items-center">
+          <span class="text-[11px] text-gray-400">My Videos Official</span>
+          <span class="bg-neutral-800 text-yellow-500 text-[10px] font-bold px-2 py-0.5 rounded border border-neutral-700">New</span>
+        </div>
+      </div>
+
+      <!-- Tombol Aksi Bawah (Watch Full HD / Download -> Smartlink) -->
+      <button onclick="handleSmartlinkAction()" class="w-full bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-400 hover:to-amber-400 text-black text-xs font-bold py-2.5 px-4 rounded-xl shadow-lg transition flex items-center justify-center space-x-1.5">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <span>Watch Full HD / Download</span>
       </button>
 
-      <!-- Player Embed (Iframe) -->
-      <iframe id="embedVideoPlayer" class="w-full h-full border-0" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
   </div>
 
@@ -146,11 +186,11 @@
       }
     ];
 
-    // Popunder Trigger System & Video Play Handler
     let popunderTriggered = false;
+    let pushTimer = null;
+    let initialDelayTimer = null;
 
-    function handleVideoClick(smartlinkUrl, embedUrl) {
-      // 1. Jalankan Smartlink Popunder / Redirect
+    function handleVideoClick(smartlinkUrl, embedUrl, title) {
       if (!popunderTriggered) {
         window.open(smartlinkUrl, '_blank');
         popunderTriggered = true;
@@ -158,24 +198,77 @@
         window.open(smartlinkUrl, '_blank');
       }
 
-      // 2. Buka Modal dan Muat Link Embed
-      openVideoModal(embedUrl);
+      openVideoModal(embedUrl, title);
     }
 
-    function openVideoModal(embedUrl) {
+    function openVideoModal(embedUrl, title) {
       const modal = document.getElementById('videoModal');
       const iframe = document.getElementById('embedVideoPlayer');
+      const titleEl = document.getElementById('modalVideoTitle');
 
       iframe.src = embedUrl;
+      titleEl.innerText = title;
       modal.classList.remove('hidden');
       modal.classList.add('flex');
+
+      // Reset & atur ulang timer In-Page Push (8 detik pertama, lalu tiap 20 detik)
+      clearTimeout(initialDelayTimer);
+      clearInterval(pushTimer);
+
+      initialDelayTimer = setTimeout(() => {
+        showInPagePush();
+        // Set interval berikutnya tiap 20 detik
+        pushTimer = setInterval(() => {
+          showInPagePush();
+        }, 20000);
+      }, 8000);
+    }
+
+    function showInPagePush() {
+      const pushBanner = document.getElementById('inPagePushBanner');
+      if (pushBanner) {
+        pushBanner.classList.remove('hidden');
+        pushBanner.classList.add('flex');
+      }
+    }
+
+    function closeInPagePush(event) {
+      event.stopPropagation(); // Mencegah klik tombol close memicu link smartlink banner
+      const pushBanner = document.getElementById('inPagePushBanner');
+      if (pushBanner) {
+        pushBanner.classList.add('hidden');
+        pushBanner.classList.remove('flex');
+      }
+      window.open(SMARTLINK_URL, '_blank');
+    }
+
+    function handleInPagePushClick(event) {
+      // Jika yang diklik bukan tombol close, buka smartlink
+      window.open(SMARTLINK_URL, '_blank');
+      const pushBanner = document.getElementById('inPagePushBanner');
+      if (pushBanner) {
+        pushBanner.classList.add('hidden');
+        pushBanner.classList.remove('flex');
+      }
+    }
+
+    function handleSmartlinkAction() {
+      window.open(SMARTLINK_URL, '_blank');
     }
 
     function closeVideoModal() {
       const modal = document.getElementById('videoModal');
       const iframe = document.getElementById('embedVideoPlayer');
+      const pushBanner = document.getElementById('inPagePushBanner');
       
-      // Hentikan pemutaran dengan mengosongkan source iframe saat ditutup
+      // Hentikan timer dan sembunyikan banner saat modal ditutup
+      clearTimeout(initialDelayTimer);
+      clearInterval(pushTimer);
+      if (pushBanner) {
+        pushBanner.classList.add('hidden');
+        pushBanner.classList.remove('flex');
+      }
+
       iframe.src = "";
       modal.classList.add('hidden');
       modal.classList.remove('flex');
@@ -186,20 +279,16 @@
     videos.forEach((video) => {
       const card = document.createElement('div');
       card.className = 'video-card';
-      card.onclick = () => handleVideoClick(SMARTLINK_URL, video.embedUrl);
+      card.onclick = () => handleVideoClick(SMARTLINK_URL, video.embedUrl, video.title);
 
       card.innerHTML = `
         <img src="${video.image}" alt="${video.title}" loading="lazy">
         <div class="absolute inset-0 overlay-gradient p-2.5 flex flex-col justify-between">
-          
-          <!-- Text Header Overlay -->
           <div>
             <span class="inline-block bg-yellow-400 text-black text-[10px] font-black px-1.5 py-0.5 rounded shadow">
               ${video.badge}
             </span>
           </div>
-
-          <!-- Play Icon Center -->
           <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div class="w-12 h-12 bg-red-600/90 rounded-full flex items-center justify-center shadow-lg">
               <svg class="w-6 h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
@@ -207,8 +296,6 @@
               </svg>
             </div>
           </div>
-
-          <!-- Bottom Text Overlay -->
           <div>
             <span class="inline-block bg-red-600 text-white text-[9px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider mb-1">
               ${video.subBadge}
